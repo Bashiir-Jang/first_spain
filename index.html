@@ -61,10 +61,13 @@
                     <h1 class="text-lg font-black hidden sm:block tracking-tight">ES 스페인어 마스터 코넬 노트</h1>
                 </div>
                 <div>
-                    <select class="bg-brand-600 text-white text-sm border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-white outline-none cursor-pointer font-medium shadow-sm">
-                        <option>Día 01: 알파벳과 발음, 명사와 관사</option>
-                        <option>Día 03: Yo hablo español.</option>
-                    </select>
+<select class="bg-brand-600 text-white text-sm border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-white outline-none cursor-pointer font-medium shadow-sm" onchange="navigateLesson(this)">
+    <option value="index.html">Día 01: 알파벳과 발음, 명사와 관사</option>
+    <option value="d_a_02.html">Día 02: 인사 표현 익히기</option>
+    <option value="d_a_03.html">Día 03: Yo hablo español.</option>
+    <option value="d_a_04.html">Día 04: Yo soy coreano.</option>
+    <option value="d_a_05.html">Día 05: Juan está en la biblioteca.</option>
+</select>
                 </div>
             </div>
 
@@ -783,6 +786,16 @@
             document.getElementById('vocab-total-count').textContent = count;
             renderVocab(wordData);
         };
+// 셀렉트 박스 페이지 이동 처리 함수
+function navigateLesson(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const url = selectedOption.value;
+    
+    if (url) {
+        // 실제 페이지로 이동하는 핵심 코드
+        window.location.href = url;
+    }
+}
     </script>
 </body>
 </html>
