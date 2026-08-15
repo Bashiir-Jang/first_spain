@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스페인어 마스터 코넬 노트 - Día 03</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            900: '#78350f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f3f4f6; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* 스크롤바 숨기기 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 코넬 노트 스타일 레이아웃을 위한 커스텀 클래스 */
+        .cornell-section { position: relative; }
+        .cornell-section::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0; width: 4px;
+            background-color: #fef3c7;
+            border-radius: 4px 0 0 4px;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased pb-20">
+
+    <header class="bg-brand-500 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <!-- 상단 바 -->
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <span class="bg-brand-900 text-xs font-bold px-2 py-1 rounded-md">스페인어 첫걸음</span>
+                    <h1 class="text-lg font-black hidden sm:block tracking-tight">ES 스페인어 마스터 코넬 노트</h1>
+                </div>
+                <div>
+                    <select class="bg-brand-600 text-white text-sm border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-white outline-none cursor-pointer font-medium shadow-sm">
+                        <option>Día 03: Yo hablo español.</option>
+                        <!-- 추후 과 추가 시 옵션 삽입 -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- 탭 메뉴 -->
+            <div class="flex justify-center space-x-1 mt-2 pb-0">
+                <button onclick="switchTab('study')" id="tab-btn-study" class="flex-1 max-w-[160px] bg-white text-brand-600 font-bold py-3 px-4 rounded-t-xl shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] transition-colors flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-book-open"></i><span>학습 노트</span>
+                </button>
+                <button onclick="switchTab('business')" id="tab-btn-business" class="flex-1 max-w-[160px] bg-brand-600 text-white font-bold py-3 px-4 rounded-t-xl hover:bg-brand-900 transition-colors flex items-center justify-center space-x-2 opacity-90">
+                    <i class="fa-solid fa-briefcase"></i><span class="hidden sm:inline">비즈니스 실전</span><span class="sm:hidden">비즈니스</span>
+                </button>
+                <button onclick="switchTab('vocab')" id="tab-btn-vocab" class="flex-1 max-w-[160px] bg-brand-600 text-white font-bold py-3 px-4 rounded-t-xl hover:bg-brand-900 transition-colors flex items-center justify-center space-x-2 opacity-90 relative">
+                    <i class="fa-solid fa-language"></i><span>단어장</span>
+                    <span id="header-vocab-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full shadow-sm">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 mt-6">
+        
+        <section id="tab-study" class="tab-content active space-y-6">
+            
+            <!-- 메인 타이틀 영역 (교재 표지 느낌) -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 sm:p-8 mb-6 relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-monument text-9xl -mb-4 -mr-4"></i>
+                </div>
+                <div class="relative z-10 flex items-center">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-brand-50 text-brand-600 border-2 border-brand-200 rounded-full flex items-center justify-center text-2xl sm:text-3xl font-black shadow-sm shrink-0">
+                        03
+                    </div>
+                    <div class="ml-4 sm:ml-6">
+                        <p class="text-brand-600 font-bold text-sm sm:text-base tracking-wider">DÍA 03 · 기본 동사와 대명사</p>
+                        <h2 class="text-3xl sm:text-4xl font-black mt-1 mb-2 text-gray-900">Yo hablo español.</h2>
+                        <p class="text-gray-500 text-sm sm:text-base font-medium">규칙동사(-ar, -er, -ir)의 변화와 기초 의문문/부정문</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 핵심 문장 1 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden cornell-section">
+                <div class="bg-brand-50 p-4 border-b border-brand-100 flex items-center justify-between pl-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-sm">1</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900">Yo hablo español.</h3>
+                        <button onclick="playTTS('Yo hablo español.')" class="w-8 h-8 rounded-full bg-white border border-brand-200 text-brand-500 hover:bg-brand-500 hover:text-white transition-colors flex items-center justify-center focus:outline-none shadow-sm">
+                            <i class="fa-solid fa-volume-high text-sm"></i>
+                        </button>
+                    </div>
+                    <span class="text-gray-500 text-sm font-medium hidden sm:block">나는 스페인어를 해.</span>
+                </div>
+                <div class="p-5 sm:p-6 pl-6 space-y-6">
+                    <div>
+                        <h4 class="font-bold text-brand-600 flex items-center mb-4"><i class="fa-solid fa-star mr-2 text-sm"></i>인칭대명사</h4>
+                        <div class="overflow-x-auto no-scrollbar rounded-xl border border-gray-200">
+                            <table class="w-full text-sm sm:text-base border-collapse text-center whitespace-nowrap">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b border-gray-200">
+                                        <th class="py-3 px-4 font-semibold text-gray-600">인칭</th>
+                                        <th class="py-3 px-4 font-semibold text-gray-600 border-l border-gray-200">단수(Singular)</th>
+                                        <th class="py-3 px-4 font-semibold text-gray-600 border-l border-gray-200">복수(Plural)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-gray-100">
+                                        <td class="py-3 px-4 text-brand-600 font-bold bg-brand-50/30">1인칭 (나/우리)</td>
+                                        <td class="py-3 px-4 border-l border-gray-100"><strong>yo</strong> <span class="text-gray-400 text-xs ml-1">[요]</span></td>
+                                        <td class="py-3 px-4 border-l border-gray-100"><strong>nosotros</strong> <span class="text-blue-400 text-xs ml-1">[노쏘뜨로스]</span><br><strong>nosotras</strong> <span class="text-pink-400 text-xs ml-1">[노쏘뜨라스]</span></td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 bg-gray-50/50">
+                                        <td class="py-3 px-4 text-brand-600 font-bold bg-brand-50/30">2인칭 (너/너희)</td>
+                                        <td class="py-3 px-4 border-l border-gray-100"><strong>tú</strong> <span class="text-gray-400 text-xs ml-1">[뚜]</span></td>
+                                        <td class="py-3 px-4 border-l border-gray-100"><strong>vosotros</strong> <span class="text-blue-400 text-xs ml-1">[보쏘뜨로스]</span><br><strong>vosotras</strong> <span class="text-pink-400 text-xs ml-1">[보쏘뜨라스]</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 text-brand-600 font-bold bg-brand-50/30">3인칭 (그/그녀/당신)</td>
+                                        <td class="py-3 px-4 border-l border-gray-100">
+                                            <strong>él</strong> <span class="text-blue-400 text-xs ml-1">[엘]</span> / <strong>ella</strong> <span class="text-pink-400 text-xs ml-1">[에야]</span><br>
+                                            <strong class="text-brand-600">usted</strong> <span class="text-gray-400 text-xs ml-1">[우스뗏]</span>
+                                        </td>
+                                        <td class="py-3 px-4 border-l border-gray-100">
+                                            <strong>ellos</strong> <span class="text-blue-400 text-xs ml-1">[에요스]</span> / <strong>ellas</strong> <span class="text-pink-400 text-xs ml-1">[에야스]</span><br>
+                                            <strong class="text-brand-600">ustedes</strong> <span class="text-gray-400 text-xs ml-1">[우스떼데스]</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 text-sm leading-relaxed">
+                            <h5 class="font-bold text-gray-800 mb-2 flex items-center"><i class="fa-solid fa-lightbulb text-brand-500 mr-2"></i>주어의 생략</h5>
+                            스페인어는 동사의 형태만 보아도 주어를 유추할 수 있기 때문에 <strong>주격 인칭대명사는 평소 대화에서 자주 생략</strong>됩니다.<br>
+                            <span class="text-gray-500 mt-1 block">(예: Yo hablo español. → Hablo español.)</span>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 text-sm leading-relaxed">
+                            <h5 class="font-bold text-orange-800 mb-2 flex items-center"><i class="fa-solid fa-crown text-orange-500 mr-2"></i>왕초보 탈출 팁 (usted)</h5>
+                            존칭어인 <strong class="text-orange-600">usted(당신)</strong>은 의미상 2인칭이지만 <strong>문법적으로 3인칭 동사를 사용</strong>한다는 점을 꼭 기억하세요! 줄여서 Ud. 혹은 Vd. 라고도 씁니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 문장 2 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden cornell-section">
+                <div class="bg-brand-50 p-4 border-b border-brand-100 flex items-center justify-between pl-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-sm">2</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900">¿Hablas tú español?</h3>
+                        <button onclick="playTTS('¿Hablas tú español?')" class="w-8 h-8 rounded-full bg-white border border-brand-200 text-brand-500 hover:bg-brand-500 hover:text-white transition-colors flex items-center justify-center focus:outline-none shadow-sm">
+                            <i class="fa-solid fa-volume-high text-sm"></i>
+                        </button>
+                    </div>
+                    <span class="text-gray-500 text-sm font-medium hidden sm:block">너는 스페인어를 하니?</span>
+                </div>
+                <div class="p-5 sm:p-6 pl-6 space-y-6">
+                    <div>
+                        <h4 class="font-bold text-brand-600 flex items-center mb-4"><i class="fa-solid fa-rotate mr-2 text-sm"></i>-ar로 끝나는 규칙동사 변화 (원형: hablar 말하다)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">yo</span><span class="font-black text-xl text-gray-800">habl<span class="text-brand-500">o</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">tú</span><span class="font-black text-xl text-gray-800">habl<span class="text-brand-500">as</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm col-span-2 md:col-span-1"><span class="text-xs text-gray-400 font-bold block mb-1">él/ella/usted</span><span class="font-black text-xl text-gray-800">habl<span class="text-brand-500">a</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">nosotros(as)</span><span class="font-black text-xl text-gray-800">habl<span class="text-brand-500">amos</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">vosotros(as)</span><span class="font-black text-xl text-gray-800">habl<span class="text-brand-500">áis</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm col-span-2 md:col-span-1"><span class="text-xs text-gray-400 font-bold block mb-1">ellos(as)/ustedes</span><span class="font-black text-xl text-gray-800">habl<span class="text-brand-500">an</span></span></div>
+                        </div>
+                        <div class="mt-4 bg-gray-50 rounded-lg p-3 text-sm text-gray-600 flex flex-wrap gap-2">
+                            <span class="font-bold text-gray-800 mr-2">주요 -ar 동사:</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">estudiar(공부하다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">comprar(사다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">trabajar(일하다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">cocinar(요리하다)</span>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 text-sm flex items-start">
+                        <i class="fa-solid fa-circle-question text-blue-500 mt-1 mr-3 text-lg"></i>
+                        <div>
+                            <strong class="text-blue-900 block mb-1">의문문 만들기</strong>
+                            문장 앞뒤에 거꾸로 된 물음표 <strong class="text-lg">¿</strong> 와 일반 물음표 <strong class="text-lg">?</strong> 를 붙이고, 주어와 동사의 위치를 바꾸거나 평서문 끝 억양만 올립니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 문장 3 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden cornell-section">
+                <div class="bg-brand-50 p-4 border-b border-brand-100 flex items-center justify-between pl-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-sm">3</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900">Él come una hamburguesa.</h3>
+                        <button onclick="playTTS('Él come una hamburguesa.')" class="w-8 h-8 rounded-full bg-white border border-brand-200 text-brand-500 hover:bg-brand-500 hover:text-white transition-colors flex items-center justify-center focus:outline-none shadow-sm">
+                            <i class="fa-solid fa-volume-high text-sm"></i>
+                        </button>
+                    </div>
+                    <span class="text-gray-500 text-sm font-medium hidden sm:block">그는 햄버거를 먹어.</span>
+                </div>
+                <div class="p-5 sm:p-6 pl-6 space-y-6">
+                    <div>
+                        <h4 class="font-bold text-brand-600 flex items-center mb-4"><i class="fa-solid fa-utensils mr-2 text-sm"></i>-er로 끝나는 규칙동사 변화 (원형: comer 먹다)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">yo</span><span class="font-black text-xl text-gray-800">com<span class="text-brand-500">o</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">tú</span><span class="font-black text-xl text-gray-800">com<span class="text-brand-500">es</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm col-span-2 md:col-span-1"><span class="text-xs text-gray-400 font-bold block mb-1">él/ella/usted</span><span class="font-black text-xl text-gray-800">com<span class="text-brand-500">e</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">nosotros(as)</span><span class="font-black text-xl text-gray-800">com<span class="text-brand-500">emos</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">vosotros(as)</span><span class="font-black text-xl text-gray-800">com<span class="text-brand-500">éis</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm col-span-2 md:col-span-1"><span class="text-xs text-gray-400 font-bold block mb-1">ellos(as)/ustedes</span><span class="font-black text-xl text-gray-800">com<span class="text-brand-500">en</span></span></div>
+                        </div>
+                        <div class="mt-4 bg-gray-50 rounded-lg p-3 text-sm text-gray-600 flex flex-wrap gap-2">
+                            <span class="font-bold text-gray-800 mr-2">주요 -er 동사:</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">aprender(배우다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">vender(팔다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">beber(마시다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">leer(읽다)</span>
+                        </div>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-100 text-sm flex items-start">
+                        <i class="fa-solid fa-magnifying-glass text-yellow-500 mt-1 mr-3 text-lg"></i>
+                        <div>
+                            <strong class="text-yellow-900 block mb-1">의문대명사 Qué</strong>
+                            영어의 what에 해당하는 의문대명사로 '무엇'을 의미하며, 목적어를 묻고 싶을 때 사용합니다.<br>
+                            <span class="text-gray-600 mt-1 block">예) ¿<strong>Qué</strong> venden ellos? (그들은 무엇을 팝니까?) / Ellos venden libros. (그들은 책을 팝니다.)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 문장 4 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden cornell-section">
+                <div class="bg-brand-50 p-4 border-b border-brand-100 flex items-center justify-between pl-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-sm">4</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900">Yo no vivo en Seúl.</h3>
+                        <button onclick="playTTS('Yo no vivo en Seúl.')" class="w-8 h-8 rounded-full bg-white border border-brand-200 text-brand-500 hover:bg-brand-500 hover:text-white transition-colors flex items-center justify-center focus:outline-none shadow-sm">
+                            <i class="fa-solid fa-volume-high text-sm"></i>
+                        </button>
+                    </div>
+                    <span class="text-gray-500 text-sm font-medium hidden sm:block">나는 서울에 살지 않아.</span>
+                </div>
+                <div class="p-5 sm:p-6 pl-6 space-y-6">
+                    <div>
+                        <h4 class="font-bold text-brand-600 flex items-center mb-4"><i class="fa-solid fa-house-chimney mr-2 text-sm"></i>-ir로 끝나는 규칙동사 변화 (원형: vivir 살다)</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">yo</span><span class="font-black text-xl text-gray-800">viv<span class="text-brand-500">o</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">tú</span><span class="font-black text-xl text-gray-800">viv<span class="text-brand-500">es</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm col-span-2 md:col-span-1"><span class="text-xs text-gray-400 font-bold block mb-1">él/ella/usted</span><span class="font-black text-xl text-gray-800">viv<span class="text-brand-500">e</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">nosotros(as)</span><span class="font-black text-xl text-gray-800">viv<span class="text-brand-500">imos</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm"><span class="text-xs text-gray-400 font-bold block mb-1">vosotros(as)</span><span class="font-black text-xl text-gray-800">viv<span class="text-brand-500">ís</span></span></div>
+                            <div class="border border-gray-200 rounded-xl p-4 text-center bg-white shadow-sm col-span-2 md:col-span-1"><span class="text-xs text-gray-400 font-bold block mb-1">ellos(as)/ustedes</span><span class="font-black text-xl text-gray-800">viv<span class="text-brand-500">en</span></span></div>
+                        </div>
+                        <div class="mt-4 bg-gray-50 rounded-lg p-3 text-sm text-gray-600 flex flex-wrap gap-2">
+                            <span class="font-bold text-gray-800 mr-2">주요 -ir 동사:</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">escribir(쓰다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">abrir(열다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">recibir(받다)</span>
+                            <span class="bg-white px-2 py-1 border border-gray-200 rounded text-xs">permitir(허락하다)</span>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-100 text-sm flex items-start">
+                        <i class="fa-solid fa-ban text-red-500 mt-1 mr-3 text-lg"></i>
+                        <div>
+                            <strong class="text-red-900 block mb-1">부정문 만들기</strong>
+                            스페인어에서는 평서문(동사) 바로 앞에 <strong class="text-red-600 text-lg">no</strong>만 붙여주면 부정문이 됩니다.<br>
+                            <span class="text-gray-600 mt-1 block">예) Yo hablo coreano. → Yo <strong>no</strong> hablo coreano. (나는 한국어를 못한다)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 교재 실전 회화 -->
+            <div class="bg-slate-800 rounded-2xl shadow-md overflow-hidden text-white mt-8">
+                <div class="bg-slate-900 p-4 border-b border-slate-700 font-bold flex items-center justify-between text-lg">
+                    <div class="flex items-center"><i class="fa-solid fa-comments text-brand-400 mr-3 text-xl"></i> 교재 실전 회화 (José & Ana)</div>
+                </div>
+                <div class="p-5 sm:p-6 space-y-4">
+                    <!-- 대화 1 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold shrink-0 shadow-inner">J</div>
+                        <div class="bg-slate-700 p-4 rounded-2xl rounded-tl-none w-full relative">
+                            <div class="flex justify-between items-start">
+                                <p class="font-bold text-lg mb-1">Hola, buenos días, Ana. ¿Qué tal?</p>
+                                <button onclick="playTTS('Hola, buenos días, Ana. ¿Qué tal?')" class="text-slate-400 hover:text-white focus:outline-none ml-2"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                            <p class="text-slate-400 text-sm">안녕, 좋은 아침이야, 아나. 어떻게 지내?</p>
+                        </div>
+                    </div>
+                    <!-- 대화 2 -->
+                    <div class="flex items-start space-x-3 flex-row-reverse space-x-reverse">
+                        <div class="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center font-bold shrink-0 shadow-inner">A</div>
+                        <div class="bg-brand-600 p-4 rounded-2xl rounded-tr-none w-full relative">
+                            <div class="flex justify-between items-start">
+                                <button onclick="playTTS('Bien, ¿y tú?')" class="text-white/70 hover:text-white focus:outline-none mr-2"><i class="fa-solid fa-volume-high"></i></button>
+                                <p class="font-bold text-lg mb-1 text-right">Bien, ¿y tú?</p>
+                            </div>
+                            <p class="text-brand-200 text-sm text-right">잘지내, 너는?</p>
+                        </div>
+                    </div>
+                    <!-- 대화 3 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold shrink-0 shadow-inner">J</div>
+                        <div class="bg-slate-700 p-4 rounded-2xl rounded-tl-none w-full relative">
+                            <div class="flex justify-between items-start">
+                                <p class="font-bold text-lg mb-1">Muy bien.</p>
+                                <button onclick="playTTS('Muy bien.')" class="text-slate-400 hover:text-white focus:outline-none ml-2"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                            <p class="text-slate-400 text-sm">아주 잘지내.</p>
+                        </div>
+                    </div>
+                    <!-- 대화 4 -->
+                    <div class="flex items-start space-x-3 flex-row-reverse space-x-reverse">
+                        <div class="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center font-bold shrink-0 shadow-inner">A</div>
+                        <div class="bg-brand-600 p-4 rounded-2xl rounded-tr-none w-full relative">
+                            <div class="flex justify-between items-start">
+                                <button onclick="playTTS('Estos días estudio italiano.')" class="text-white/70 hover:text-white focus:outline-none mr-2"><i class="fa-solid fa-volume-high"></i></button>
+                                <p class="font-bold text-lg mb-1 text-right">Estos días estudio italiano.</p>
+                            </div>
+                            <p class="text-brand-200 text-sm text-right">요즘 나는 이탈리아어를 공부해.</p>
+                        </div>
+                    </div>
+                    <!-- 대화 5 -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold shrink-0 shadow-inner">J</div>
+                        <div class="bg-slate-700 p-4 rounded-2xl rounded-tl-none w-full relative">
+                            <div class="flex justify-between items-start">
+                                <p class="font-bold text-lg mb-1">Ah, ¿hablas tú italiano?</p>
+                                <button onclick="playTTS('Ah, ¿hablas tú italiano?')" class="text-slate-400 hover:text-white focus:outline-none ml-2"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                            <p class="text-slate-400 text-sm">아, 너 이탈리아어를 하니?</p>
+                        </div>
+                    </div>
+                    <!-- 대화 6 -->
+                    <div class="flex items-start space-x-3 flex-row-reverse space-x-reverse">
+                        <div class="w-10 h-10 rounded-full bg-red-400 flex items-center justify-center font-bold shrink-0 shadow-inner">A</div>
+                        <div class="bg-brand-600 p-4 rounded-2xl rounded-tr-none w-full relative">
+                            <div class="flex justify-between items-start">
+                                <button onclick="playTTS('Sí, un poco.')" class="text-white/70 hover:text-white focus:outline-none mr-2"><i class="fa-solid fa-volume-high"></i></button>
+                                <p class="font-bold text-lg mb-1 text-right">Sí, un poco.</p>
+                            </div>
+                            <p class="text-brand-200 text-sm text-right">응, 조금.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 기본 회화 연습 -->
+            <div class="bg-white border-2 border-green-100 rounded-2xl p-6 mt-6">
+                <h4 class="font-black text-green-700 text-lg mb-5 flex items-center"><i class="fa-solid fa-pen-to-square mr-2"></i>기본 회화 연습</h4>
+                <div class="space-y-3">
+                    <div class="bg-gray-50 border border-gray-100 p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-green-50 hover:border-green-200 transition group" onclick="playTTS('Nosotros hablamos chino.')">
+                        <div><p class="font-bold text-gray-800 text-lg">Nosotros <span class="text-brand-500">hablamos</span> chino.</p><p class="text-sm text-gray-500 mt-1">우리들은 중국어를 합니다.</p></div>
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white text-gray-400 transition-colors shadow-sm"><i class="fa-solid fa-volume-high"></i></div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-green-50 hover:border-green-200 transition group" onclick="playTTS('Ella habla ruso.')">
+                        <div><p class="font-bold text-gray-800 text-lg">Ella <span class="text-brand-500">habla</span> ruso.</p><p class="text-sm text-gray-500 mt-1">그녀는 러시아어를 합니다.</p></div>
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white text-gray-400 transition-colors shadow-sm"><i class="fa-solid fa-volume-high"></i></div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-green-50 hover:border-green-200 transition group" onclick="playTTS('Los coreanos comen arroz.')">
+                        <div><p class="font-bold text-gray-800 text-lg">Los coreanos <span class="text-brand-500">comen</span> arroz.</p><p class="text-sm text-gray-500 mt-1">한국인들은 밥을 먹는다.</p></div>
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white text-gray-400 transition-colors shadow-sm"><i class="fa-solid fa-volume-high"></i></div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-green-50 hover:border-green-200 transition group" onclick="playTTS('Usted vive en Daegu.')">
+                        <div><p class="font-bold text-gray-800 text-lg">Usted <span class="text-brand-500">vive</span> en Daegu.</p><p class="text-sm text-gray-500 mt-1">당신은 대구에 삽니다.</p></div>
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white text-gray-400 transition-colors shadow-sm"><i class="fa-solid fa-volume-high"></i></div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 p-4 rounded-xl flex justify-between items-center cursor-pointer hover:bg-green-50 hover:border-green-200 transition group" onclick="playTTS('Viven en Uruguay.')">
+                        <div><p class="font-bold text-gray-800 text-lg"><span class="text-brand-500">Viven</span> en Uruguay.</p><p class="text-sm text-gray-500 mt-1">그들은 우루과이에 삽니다. (주어 Ellos 생략)</p></div>
+                        <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white text-gray-400 transition-colors shadow-sm"><i class="fa-solid fa-volume-high"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-business" class="tab-content space-y-6">
+            
+            <div class="bg-gradient-to-br from-indigo-900 via-slate-800 to-brand-900 rounded-2xl shadow-lg p-6 sm:p-8 text-white relative overflow-hidden">
+                <div class="absolute right-[-20px] top-[-20px] opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-earth-americas text-9xl"></i>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span class="bg-brand-500 text-white px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-sm">Special Mission</span>
+                        <span class="text-brand-200 text-sm font-medium">Alex (장관호) 대표님</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black mb-4 tracking-tight leading-tight">멕시코 소비재 박람회<br>실전 비즈니스 시나리오</h2>
+                    
+                    <div class="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20 text-sm sm:text-base leading-relaxed text-indigo-50">
+                        이번 3과에서 배운 <strong>일반동사 규칙변화(-ar, -er, -ir)</strong>와 <strong>의문문/부정문</strong>은 비즈니스 환경에서 우리 회사가 <strong>무엇을 만들고(fabricar) 파는지(vender), 바이어가 무엇을 원하는지(desear)</strong> 묻고 답할 때 가장 핵심이 되는 문법입니다.<br><br>
+                        다가오는 9월 멕시코 박람회 부스에서 바이어를 맞이할 때(Speaking), 그리고 사후 이메일을 보낼 때(Reading) 이 문법들을 어떻게 활용할 수 있는지 앱소(Abso), 아드망, 포뮬라인, DPD의 실제 브랜드를 통해 연습해 봅니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 회화 실전 (Speaking) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
+                <div class="flex items-center mb-6 border-b-2 border-indigo-100 pb-4">
+                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl mr-4 shadow-sm"><i class="fa-solid fa-headset"></i></div>
+                    <div>
+                        <h3 class="font-black text-xl text-gray-900">스피킹 실전 <span class="text-indigo-600 font-bold text-base ml-2">박람회 부스 인사 및 브랜드 소개</span></h3>
+                        <p class="text-sm text-gray-500 mt-1">부스에 방문한 중남미 바이어에게 회사의 브랜드와 ODM 역량을 소개하는 상황입니다.</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Alex 1 -->
+                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 relative">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-lg shadow-sm">Alex</span>
+                                <p class="font-bold text-lg text-gray-900 leading-snug">¡Hola! Buenos días. Soy Alex, CEO de Abso.</p>
+                            </div>
+                            <button onclick="playTTS('¡Hola! Buenos días. Soy Alex, CEO de Abso.')" class="bg-white border border-gray-200 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 w-10 h-10 rounded-full text-sm flex items-center justify-center transition shadow-sm"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">안녕하세요! 좋은 아침입니다. 저는 앱소의 CEO 알렉스입니다.</p>
+                    </div>
+
+                    <!-- Buyer 1 -->
+                    <div class="bg-brand-50 rounded-2xl p-5 border border-brand-100 relative">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-brand-500 text-white text-sm font-bold px-3 py-1 rounded-lg shadow-sm">Buyer</span>
+                                <p class="font-bold text-lg text-gray-900 leading-snug">Mucho gusto. ¿Qué <span class="text-brand-600 underline decoration-brand-300 decoration-2 underline-offset-4">venden</span> ustedes aquí?</p>
+                            </div>
+                            <button onclick="playTTS('Mucho gusto. ¿Qué venden ustedes aquí?')" class="bg-white border border-gray-200 text-gray-600 hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 w-10 h-10 rounded-full text-sm flex items-center justify-center transition shadow-sm"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">만나서 반갑습니다. 당신들은 여기서 무엇을 파시나요?</p>
+                        <div class="bg-white/60 p-3 rounded-lg text-xs text-brand-800 flex items-start border border-brand-200/50"><i class="fa-solid fa-magnifying-glass mt-0.5 mr-2"></i><span><strong>Qué venden ustedes:</strong> 의문대명사 Qué(무엇)와 -er 동사 vender(팔다)의 3인칭 복수형(venden) 적용.</span></div>
+                    </div>
+
+                    <!-- Alex 2 -->
+                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 relative">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-lg shadow-sm">Alex</span>
+                                <p class="font-bold text-lg text-gray-900 leading-snug">Nosotros <span class="text-indigo-600 underline decoration-indigo-300 decoration-2 underline-offset-4">vendemos</span> cosméticos de biotecnología y suplementos.</p>
+                            </div>
+                            <button onclick="playTTS('Nosotros vendemos cosméticos de biotecnología y suplementos.')" class="bg-white border border-gray-200 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 w-10 h-10 rounded-full text-sm flex items-center justify-center transition shadow-sm"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">저희는 바이오테크 화장품과 영양제를 팝니다.</p>
+                        <div class="bg-white p-3 rounded-lg text-xs text-indigo-800 flex items-start border border-gray-200"><i class="fa-solid fa-pen mt-0.5 mr-2"></i><span><strong>vendemos:</strong> -er 동사(vender)의 1인칭 복수형. 주어 Nosotros(우리)에 맞춰 변화.</span></div>
+                    </div>
+
+                    <!-- Buyer 2 -->
+                    <div class="bg-brand-50 rounded-2xl p-5 border border-brand-100 relative">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-brand-500 text-white text-sm font-bold px-3 py-1 rounded-lg shadow-sm">Buyer</span>
+                                <p class="font-bold text-lg text-gray-900 leading-snug">¡Interesante! ¿Ustedes <span class="text-brand-600 underline decoration-brand-300 decoration-2 underline-offset-4">fabrican</span> los productos?</p>
+                            </div>
+                            <button onclick="playTTS('¡Interesante! ¿Ustedes fabrican los productos?')" class="bg-white border border-gray-200 text-gray-600 hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 w-10 h-10 rounded-full text-sm flex items-center justify-center transition shadow-sm"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">흥미롭네요! 당신들이 직접 제품을 제조하나요?</p>
+                        <div class="bg-white/60 p-3 rounded-lg text-xs text-brand-800 flex items-start border border-brand-200/50"><i class="fa-solid fa-magnifying-glass mt-0.5 mr-2"></i><span><strong>fabrican:</strong> -ar 동사(fabricar: 제조하다)의 3인칭 복수형 의문문.</span></div>
+                    </div>
+
+                    <!-- Alex 3 -->
+                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 relative">
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex items-center space-x-3">
+                                <span class="bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-lg shadow-sm">Alex</span>
+                                <p class="font-bold text-lg text-gray-900 leading-snug">Sí, nosotros <span class="text-indigo-600 underline decoration-indigo-300 decoration-2 underline-offset-4">fabricamos</span> todo en DPD, nuestra empresa de ODM. Tenemos Abso, A'demang y Formula:in. Nosotros <span class="text-red-500 underline decoration-red-300 decoration-2 underline-offset-4">no usamos</span> ingredientes malos.</p>
+                            </div>
+                            <button onclick="playTTS('Sí, nosotros fabricamos todo en DPD, nuestra empresa de ODM. Tenemos Abso, Ademang y Formula:in. Nosotros no usamos ingredientes malos.')" class="bg-white border border-gray-200 text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 w-10 h-10 rounded-full text-sm flex items-center justify-center transition shadow-sm shrink-0"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">네, 저희는 저희의 ODM 회사인 DPD에서 모든 것을 제조합니다. 우리는 앱소, 아드망, 포뮬라인을 가지고 있습니다. 우리는 나쁜 성분을 사용하지 않습니다.</p>
+                        <div class="bg-white p-3 rounded-lg text-xs text-indigo-800 flex items-start border border-gray-200"><i class="fa-solid fa-pen mt-0.5 mr-2"></i><span><strong>fabricamos / no usamos:</strong> -ar 동사(fabricar, usar)의 1인칭 복수형 및 부정문(no)의 적용. 우리가 직접 좋은 성분으로 제조한다는 것을 강조.</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 독해 실전 (Reading) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 border-b-2 border-emerald-100 pb-4">
+                    <div class="flex items-center mb-4 sm:mb-0">
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl mr-4 shadow-sm"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div>
+                            <h3 class="font-black text-xl text-gray-900">리딩 실전 <span class="text-emerald-600 font-bold text-base ml-2">바이어 대상 브랜드 소개 콜드 메일</span></h3>
+                            <p class="text-sm text-gray-500 mt-1">박람회 전후로 바이어에게 우리 브랜드를 간단히 소개하는 이메일 초안입니다.</p>
+                        </div>
+                    </div>
+                    <button onclick="playTTS(document.getElementById('biz-reading').innerText)" class="bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-emerald-600 transition shadow-md flex items-center justify-center w-full sm:w-auto"><i class="fa-solid fa-play mr-2"></i>전체 듣기</button>
+                </div>
+                
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 font-serif text-lg leading-loose text-gray-800 shadow-inner" id="biz-reading">
+                    Estimado comprador,<br><br>
+                    Me llamo Alex y <span class="text-emerald-600 font-bold bg-emerald-100 px-1 rounded">trabajo</span> en Seúl, Corea del Sur. Nuestra empresa, DPD, <span class="text-emerald-600 font-bold bg-emerald-100 px-1 rounded">fabrica</span> cosméticos y suplementos de alta calidad.<br><br>
+                    Tenemos tres marcas principales: Abso, A'demang y Formula:in.<br>
+                    Abso <span class="text-emerald-600 font-bold bg-emerald-100 px-1 rounded">vende</span> ampollas de tecnología botulin, y Formula:in <span class="text-emerald-600 font-bold bg-emerald-100 px-1 rounded">vende</span> vitaminas y suplementos. Nosotros <span class="text-red-500 font-bold bg-red-100 px-1 rounded">no usamos</span> ingredientes malos para la piel.<br><br>
+                    ¿<span class="text-emerald-600 font-bold bg-emerald-100 px-1 rounded">Desean</span> ustedes <span class="text-emerald-600 font-bold bg-emerald-100 px-1 rounded">trabajar</span> con nosotros?<br><br>
+                    Saludos cordiales,<br>
+                    Alex
+                </div>
+                
+                <div class="mt-6 text-gray-600 text-sm leading-relaxed bg-white border-2 border-dashed border-gray-200 p-5 rounded-2xl">
+                    <p class="font-black text-gray-800 mb-2 flex items-center"><i class="fa-solid fa-language text-gray-400 mr-2"></i>해석 및 문법 포인트</p>
+                    친애하는 바이어에게,<br>
+                    제 이름은 알렉스이고 한국 서울에서 일합니다(<strong>trabajo</strong>: -ar 1인칭 단수). 우리 회사 DPD는 고품질의 화장품과 영양제를 제조합니다(<strong>fabrica</strong>: -ar 3인칭 단수).<br>
+                    우리는 세 개의 주요 브랜드를 가지고 있습니다: 앱소, 아드망, 포뮬라인.<br>
+                    앱소는 보툴린 기술 앰플을 팔고(<strong>vende</strong>: -er 3인칭 단수), 포뮬라인은 비타민과 영양제를 팝니다. 우리는 피부에 나쁜 성분을 사용하지 않습니다(<strong>no usamos</strong>: -ar 1인칭 복수 부정문).<br>
+                    저희와 함께 일하기를 원하시나요?(<strong>¿Desean ustedes trabajar...?</strong>: -ar 3인칭 복수 존칭 의문문)<br>
+                    감사합니다, 알렉스 올림.
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-vocab" class="tab-content">
+            <div class="bg-gray-900 rounded-t-2xl p-5 sm:p-6 flex flex-col sm:flex-row justify-between items-center text-white shadow-md relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 opacity-20 pointer-events-none">
+                    <i class="fa-solid fa-book-journal-whills text-9xl"></i>
+                </div>
+                <div class="flex items-center space-x-3 mb-4 sm:mb-0 relative z-10 w-full sm:w-auto justify-center sm:justify-start">
+                    <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-2xl text-brand-400 backdrop-blur-sm"><i class="fa-solid fa-book"></i></div>
+                    <div>
+                        <h3 class="font-black text-xl tracking-tight">3과 핵심 & 비즈니스 단어장</h3>
+                        <p class="text-gray-400 text-sm mt-0.5">총 <span class="text-brand-400 font-bold" id="vocab-count">0</span>개의 단어 학습</p>
+                    </div>
+                </div>
+                <button onclick="playAllVocab()" id="btn-play-all" class="relative z-10 w-full sm:w-auto bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-xl text-sm font-bold transition shadow-lg flex items-center justify-center border border-brand-400/50">
+                    <i class="fa-solid fa-play mr-2"></i>전체 연속 재생
+                </button>
+            </div>
+            
+            <div class="bg-white border-x border-b border-gray-200 rounded-b-2xl p-2 sm:p-6 shadow-sm">
+                <div class="bg-brand-50/50 border border-brand-100 text-brand-800 text-sm p-4 rounded-xl mb-6 text-center flex items-center justify-center">
+                    <i class="fa-solid fa-headphones mr-2 text-brand-500 text-lg"></i> 
+                    <span><strong>전체 재생</strong>을 누르면 스페인어와 한국어 뜻이 순서대로 자동 재생됩니다.</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="vocab-list-container">
+                    <!-- JS로 단어 리스트 자동 렌더링 됨 -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        
+        // 탭 전환 함수
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+
+            const btns = ['study', 'business', 'vocab'];
+            btns.forEach(btn => {
+                const el = document.getElementById(`tab-btn-${btn}`);
+                if(btn === tabName) {
+                    el.classList.remove('bg-brand-600', 'text-white', 'hover:bg-brand-900', 'opacity-90');
+                    el.classList.add('bg-white', 'text-brand-600');
+                } else {
+                    el.classList.add('bg-brand-600', 'text-white', 'hover:bg-brand-900', 'opacity-90');
+                    el.classList.remove('bg-white', 'text-brand-600');
+                }
+            });
+
+            // 다른 탭으로 이동 시 재생중인 음성 중지
+            window.speechSynthesis.cancel();
+            isPlayingAll = false;
+            updatePlayAllButtonUI();
+        }
+
+        // 기본 TTS 함수 (스페인어 전용)
+        function playTTS(text, lang = 'es-ES') {
+            window.speechSynthesis.cancel(); 
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.rate = 0.9; 
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // 단어 데이터 (교재 + 비즈니스 기반)
+        const vocabs = [
+            // 대명사 및 교재 기본 단어
+            { es: "yo", ko: "나", type: "대명사" },
+            { es: "tú", ko: "너", type: "대명사" },
+            { es: "él", ko: "그", type: "대명사" },
+            { es: "ella", ko: "그녀", type: "대명사" },
+            { es: "usted", ko: "당신 (존칭)", type: "대명사" },
+            { es: "nosotros", ko: "우리들", type: "대명사" },
+            { es: "vosotros", ko: "너희들", type: "대명사" },
+            { es: "ellos", ko: "그들", type: "대명사" },
+            { es: "ustedes", ko: "당신들 (존칭 복수)", type: "대명사" },
+            // 규칙 동사
+            { es: "hablar", ko: "말하다", type: "동사" },
+            { es: "comer", ko: "먹다", type: "동사" },
+            { es: "vivir", ko: "살다", type: "동사" },
+            { es: "estudiar", ko: "공부하다", type: "동사" },
+            { es: "comprar", ko: "사다", type: "동사" },
+            { es: "cocinar", ko: "요리하다", type: "동사" },
+            { es: "aprender", ko: "배우다", type: "동사" },
+            { es: "beber", ko: "마시다", type: "동사" },
+            { es: "escribir", ko: "쓰다", type: "동사" },
+            { es: "abrir", ko: "열다", type: "동사" },
+            { es: "recibir", ko: "받다", type: "동사" },
+            // 명사 및 기타 (교재)
+            { es: "español", ko: "스페인어", type: "명사" },
+            { es: "inglés", ko: "영어", type: "명사" },
+            { es: "comida", ko: "음식", type: "명사" },
+            { es: "hamburguesa", ko: "햄버거", type: "명사" },
+            { es: "libro", ko: "책", type: "명사" },
+            { es: "qué", ko: "무엇 (의문대명사)", type: "기타" },
+            { es: "no", ko: "아니, ~않다", type: "기타" },
+            { es: "en", ko: "~안에, ~에", type: "전치사" },
+            { es: "regalo", ko: "선물", type: "명사" },
+            { es: "puerta", ko: "문", type: "명사" },
+            { es: "bueno", ko: "좋은", type: "형용사" },
+            { es: "día", ko: "날, 주간", type: "명사" },
+            { es: "bien", ko: "잘", type: "부사" },
+            { es: "muy", ko: "매우, 아주", type: "부사" },
+            { es: "sí", ko: "네, 응", type: "기타" },
+            // 비즈니스 실전 추가 단어 (Alex 대표님 맞춤 브랜드 포함)
+            { es: "trabajar", ko: "일하다", type: "비즈니스" },
+            { es: "vender", ko: "팔다", type: "비즈니스" },
+            { es: "fabricar", ko: "제조하다", type: "비즈니스" },
+            { es: "desear", ko: "원하다, 바라다", type: "비즈니스" },
+            { es: "usar", ko: "사용하다", type: "비즈니스" },
+            { es: "empresa", ko: "회사, 기업", type: "비즈니스" },
+            { es: "marca", ko: "브랜드", type: "비즈니스" },
+            { es: "cosméticos", ko: "화장품", type: "비즈니스" },
+            { es: "suplementos", ko: "영양제, 보충제", type: "비즈니스" },
+            { es: "biotecnología", ko: "바이오테크, 생명공학", type: "비즈니스" },
+            { es: "calidad", ko: "품질", type: "비즈니스" }
+        ];
+
+        // 단어장 렌더링
+        const container = document.getElementById('vocab-list-container');
+        document.getElementById('vocab-count').innerText = vocabs.length;
+        document.getElementById('header-vocab-count').innerText = vocabs.length;
+
+        vocabs.forEach((v, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = "bg-white border border-gray-100 rounded-xl p-4 flex items-center justify-between hover:shadow-md hover:border-brand-200 transition-all group";
+            
+            let badgeStyle = "bg-gray-100 text-gray-600";
+            let icon = "fa-tag";
+            if(v.type === "비즈니스") { badgeStyle = "bg-indigo-50 text-indigo-600 border border-indigo-100"; icon = "fa-briefcase"; }
+            if(v.type === "동사") { badgeStyle = "bg-emerald-50 text-emerald-600 border border-emerald-100"; icon = "fa-person-running"; }
+            if(v.type === "대명사") { badgeStyle = "bg-blue-50 text-blue-600 border border-blue-100"; icon = "fa-user"; }
+
+            wrapper.innerHTML = `
+                <div class="flex-1 overflow-hidden pr-3">
+                    <div class="flex items-center space-x-2 mb-1.5">
+                        <span class="${badgeStyle} text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center"><i class="fa-solid ${icon} mr-1 text-[8px]"></i>${v.type}</span>
+                    </div>
+                    <p class="font-black text-lg text-gray-900 truncate">${v.es}</p>
+                    <p class="text-gray-500 text-sm mt-0.5 truncate">${v.ko}</p>
+                </div>
+                <button onclick="playTTS('${v.es}')" class="w-12 h-12 rounded-full bg-gray-50 text-gray-400 group-hover:bg-brand-500 group-hover:text-white transition-colors flex items-center justify-center shadow-sm shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-300">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            `;
+            container.appendChild(wrapper);
+        });
+
+        let isPlayingAll = false;
+        let currentIndex = 0;
+
+        function updatePlayAllButtonUI() {
+            const btn = document.getElementById('btn-play-all');
+            if (isPlayingAll) {
+                btn.innerHTML = '<i class="fa-solid fa-stop mr-2"></i>재생 중지';
+                btn.classList.replace('bg-brand-500', 'bg-red-500');
+                btn.classList.replace('hover:bg-brand-600', 'hover:bg-red-600');
+                btn.classList.replace('border-brand-400/50', 'border-red-400/50');
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-play mr-2"></i>전체 연속 재생';
+                btn.classList.replace('bg-red-500', 'bg-brand-500');
+                btn.classList.replace('hover:bg-red-600', 'hover:bg-brand-600');
+                btn.classList.replace('border-red-400/50', 'border-brand-400/50');
+            }
+        }
+
+        function speakWord(text, lang) {
+            return new Promise((resolve, reject) => {
+                if (!isPlayingAll) return reject('Stopped');
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.85; // 단어 학습용으로 약간 더 천천히
+                utterance.onend = resolve;
+                utterance.onerror = resolve; 
+                window.speechSynthesis.speak(utterance);
+            });
+        }
+
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+        async function playAllVocab() {
+            if (isPlayingAll) {
+                isPlayingAll = false;
+                window.speechSynthesis.cancel();
+                updatePlayAllButtonUI();
+                return;
+            }
+
+            isPlayingAll = true;
+            updatePlayAllButtonUI();
+            currentIndex = 0;
+
+            // 시각적 피드백을 위한 스크롤 로직 추가
+            const vocabCards = document.getElementById('vocab-list-container').children;
+
+            try {
+                while (currentIndex < vocabs.length && isPlayingAll) {
+                    const vocab = vocabs[currentIndex];
+                    const currentCard = vocabCards[currentIndex];
+                    
+                    // 현재 재생중인 카드 하이라이트
+                    Array.from(vocabCards).forEach(c => c.classList.remove('ring-2', 'ring-brand-500', 'bg-brand-50'));
+                    if(currentCard) {
+                        currentCard.classList.add('ring-2', 'ring-brand-500', 'bg-brand-50');
+                        currentCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    
+                    // 스페인어 재생
+                    await speakWord(vocab.es, 'es-ES');
+                    if (!isPlayingAll) break;
+                    await sleep(300); 
+
+                    // 한국어 재생 
+                    await speakWord(vocab.ko, 'ko-KR');
+                    if (!isPlayingAll) break;
+                    await sleep(700); 
+
+                    currentIndex++;
+                }
+            } catch (e) {
+                console.log("Play interrupted.");
+            } finally {
+                isPlayingAll = false;
+                Array.from(vocabCards).forEach(c => c.classList.remove('ring-2', 'ring-brand-500', 'bg-brand-50'));
+                updatePlayAllButtonUI();
+            }
+        }
+
+    </script>
+</body>
+</html>

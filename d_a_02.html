@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스페인어 마스터 코넬 노트 - Día 02</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            900: '#78350f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f3f4f6; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* 스크롤바 숨기기 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* 코넬 노트 스타일 레이아웃을 위한 커스텀 클래스 */
+        .cornell-section { position: relative; }
+        .cornell-section::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0; width: 4px;
+            background-color: #fef3c7;
+            border-radius: 4px 0 0 4px;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased pb-20">
+
+    <header class="bg-brand-500 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <!-- 상단 바 -->
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <span class="bg-brand-900 text-xs font-bold px-2 py-1 rounded-md">스페인어 첫걸음</span>
+                    <h1 class="text-lg font-black hidden sm:block tracking-tight">ES 스페인어 마스터 코넬 노트</h1>
+                </div>
+                <div>
+                    <select class="bg-brand-600 text-white text-sm border-none rounded-lg px-3 py-2 focus:ring-2 focus:ring-white outline-none cursor-pointer font-medium shadow-sm">
+                        <option>Día 01: 알파벳과 발음</option>
+                        <option selected>Día 02: 인사 표현 익히기</option>
+                        <option>Día 03: Yo hablo español.</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 탭 메뉴 -->
+            <div class="flex justify-center space-x-1 mt-2 pb-0">
+                <button onclick="switchTab('study')" id="tab-btn-study" class="flex-1 max-w-[160px] bg-white text-brand-600 font-bold py-3 px-4 rounded-t-xl shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] transition-colors flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-book-open"></i><span>학습 노트</span>
+                </button>
+                <button onclick="switchTab('business')" id="tab-btn-business" class="flex-1 max-w-[160px] bg-brand-600 text-white font-bold py-3 px-4 rounded-t-xl hover:bg-brand-900 transition-colors flex items-center justify-center space-x-2 opacity-90">
+                    <i class="fa-solid fa-briefcase"></i><span class="hidden sm:inline">비즈니스 실전</span><span class="sm:hidden">비즈니스</span>
+                </button>
+                <button onclick="switchTab('vocab')" id="tab-btn-vocab" class="flex-1 max-w-[160px] bg-brand-600 text-white font-bold py-3 px-4 rounded-t-xl hover:bg-brand-900 transition-colors flex items-center justify-center space-x-2 opacity-90 relative">
+                    <i class="fa-solid fa-language"></i><span>단어장</span>
+                    <span id="header-vocab-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full shadow-sm">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 mt-6">
+        
+        <section id="tab-study" class="tab-content active space-y-6">
+            
+            <!-- 메인 타이틀 영역 -->
+            <div class="bg-white rounded-2xl shadow-sm p-6 sm:p-8 mb-6 relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-handshake text-9xl -mb-4 -mr-4"></i>
+                </div>
+                <div class="relative z-10 flex items-center">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-brand-50 text-brand-600 border-2 border-brand-200 rounded-full flex items-center justify-center text-2xl sm:text-3xl font-black shadow-sm shrink-0">
+                        02
+                    </div>
+                    <div class="ml-4 sm:ml-6">
+                        <p class="text-brand-600 font-bold text-sm sm:text-base tracking-wider">DÍA 02 · 기본 의사소통</p>
+                        <h2 class="text-3xl sm:text-4xl font-black mt-1 mb-2 text-gray-900">인사 표현 익히기</h2>
+                        <p class="text-gray-500 text-sm sm:text-base font-medium">시간대별 만남, 헤어짐, 축하, 감사, 사과, 식사 상황의 필수 표현</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 핵심 포인트 1: 만났을 때 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden cornell-section">
+                <div class="bg-brand-50 p-4 border-b border-brand-100 flex items-center justify-between pl-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-sm">1</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900">만났을 때 (시간대별 인사)</h3>
+                    </div>
+                </div>
+                <div class="p-5 sm:p-6 pl-6 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- 일반 인사 -->
+                        <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm hover:border-brand-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-black text-gray-900 text-xl">¡Hola!</h4>
+                                    <p class="text-sm text-gray-500">[올라] 안녕! / 안녕하세요!</p>
+                                </div>
+                                <button onclick="playTTS('¡Hola!')" class="text-brand-500 hover:text-brand-700 bg-brand-50 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2 bg-gray-50 p-2 rounded">
+                                <strong>Tip:</strong> 영어의 Hi, Hello에 해당하는, 하루 중 어느 때든 사용할 수 있는 가장 기본적이고 짧은 인사입니다. 스페인어에서 느낌표를 사용할 때는 처음과 끝에 각각 <strong>¡</strong> 와 <strong>!</strong>를 적어 줍니다. 물음표도 <strong>¿</strong> 와 <strong>?</strong>를 적습니다.
+                            </p>
+                        </div>
+
+                        <!-- 첫 만남 -->
+                        <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm hover:border-blue-300 transition-colors">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-black text-gray-900 text-xl">Mucho gusto.</h4>
+                                    <p class="text-sm text-gray-500">[무초 구스또] 처음 뵙겠습니다.</p>
+                                </div>
+                                <button onclick="playTTS('Mucho gusto. Encantado. Encantada.')" class="text-brand-500 hover:text-brand-700 bg-brand-50 w-8 h-8 rounded-full flex items-center justify-center"><i class="fa-solid fa-volume-high"></i></button>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2 bg-gray-50 p-2 rounded">
+                                <strong>Tip:</strong> '만나서 반갑습니다'라고 할 때 <strong>남자는 Encantado</strong> [엔깐따도], <strong>여자는 Encantada</strong> [엔깐따다] 라고 성별을 맞추어 말합니다.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100 flex flex-col items-center text-center relative">
+                            <button onclick="playTTS('¡Buenos días!')" class="absolute top-2 right-2 text-blue-400 hover:text-blue-600"><i class="fa-solid fa-volume-high"></i></button>
+                            <i class="fa-solid fa-sun text-3xl text-orange-400 mb-2"></i>
+                            <span class="text-xs text-blue-600 font-bold mb-1">아침 인사</span>
+                            <strong class="text-lg text-gray-900">¡Buenos días!</strong>
+                            <span class="text-xs text-gray-500">[부에노스 디아스] 좋은 아침입니다!</span>
+                        </div>
+                        <div class="bg-orange-50/50 p-4 rounded-xl border border-orange-100 flex flex-col items-center text-center relative">
+                            <button onclick="playTTS('¡Buenas tardes!')" class="absolute top-2 right-2 text-orange-400 hover:text-orange-600"><i class="fa-solid fa-volume-high"></i></button>
+                            <i class="fa-solid fa-cloud-sun text-3xl text-orange-500 mb-2"></i>
+                            <span class="text-xs text-orange-600 font-bold mb-1">낮 인사</span>
+                            <strong class="text-lg text-gray-900">¡Buenas tardes!</strong>
+                            <span class="text-xs text-gray-500">[부에나스 따르데스] 좋은 오후입니다!</span>
+                        </div>
+                        <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 flex flex-col items-center text-center relative">
+                            <button onclick="playTTS('¡Buenas noches!')" class="absolute top-2 right-2 text-indigo-400 hover:text-indigo-600"><i class="fa-solid fa-volume-high"></i></button>
+                            <i class="fa-solid fa-moon text-3xl text-indigo-400 mb-2"></i>
+                            <span class="text-xs text-indigo-600 font-bold mb-1">저녁/밤 인사</span>
+                            <strong class="text-lg text-gray-900">¡Buenas noches!</strong>
+                            <span class="text-xs text-gray-500">[부에나스 노체스] 좋은 저녁/밤입니다!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 포인트 2: 헤어질 때 & 잠자리 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden cornell-section">
+                <div class="bg-brand-50 p-4 border-b border-brand-100 flex items-center justify-between pl-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-sm">2</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900">헤어질 때 & 잠자리에 들 때</h3>
+                    </div>
+                </div>
+                <div class="p-5 sm:p-6 pl-6 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm text-center relative">
+                            <button onclick="playTTS('¡Chao!')" class="absolute top-2 right-2 text-gray-400 hover:text-brand-500"><i class="fa-solid fa-volume-high"></i></button>
+                            <strong class="block text-xl text-gray-900 mt-2 mb-1">¡Chao!</strong>
+                            <span class="text-xs text-gray-500 block mb-2">[차오] 안녕!</span>
+                            <span class="text-[11px] text-gray-600 bg-gray-50 px-2 py-1 rounded">잠시 헤어질 때 (내일/다음주)</span>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm text-center relative">
+                            <button onclick="playTTS('¡Hasta luego!')" class="absolute top-2 right-2 text-gray-400 hover:text-brand-500"><i class="fa-solid fa-volume-high"></i></button>
+                            <strong class="block text-xl text-gray-900 mt-2 mb-1">¡Hasta luego!</strong>
+                            <span class="text-xs text-gray-500 block mb-2">[아스따 루에고] 또 만나자!</span>
+                            <span class="text-[11px] text-gray-600 bg-gray-50 px-2 py-1 rounded">헤어질 때 흔히 쓰는 표현</span>
+                        </div>
+                        <div class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm text-center relative">
+                            <button onclick="playTTS('¡Adiós!')" class="absolute top-2 right-2 text-gray-400 hover:text-brand-500"><i class="fa-solid fa-volume-high"></i></button>
+                            <strong class="block text-xl text-gray-900 mt-2 mb-1">¡Adiós!</strong>
+                            <span class="text-xs text-gray-500 block mb-2">[아디오스] 안녕!</span>
+                            <span class="text-[11px] text-gray-600 bg-gray-50 px-2 py-1 rounded">오랜 시간 헤어질 때 (장기 여행 등)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 bg-indigo-50 rounded-xl p-4 flex items-center border border-indigo-100 relative">
+                        <button onclick="playTTS('¡Buenas noches!')" class="absolute top-1/2 transform -translate-y-1/2 right-4 w-8 h-8 rounded-full bg-white text-indigo-500 hover:bg-indigo-500 hover:text-white transition-colors flex items-center justify-center shadow-sm"><i class="fa-solid fa-volume-high"></i></button>
+                        <i class="fa-solid fa-bed text-2xl text-indigo-400 mr-4"></i>
+                        <div>
+                            <h4 class="font-bold text-gray-900">잠자리에 들 때</h4>
+                            <p class="text-sm text-gray-700 mt-1"><strong class="text-indigo-600">¡Buenas noches!</strong> [부에나스 노체스] 잘 자! / 좋은 밤입니다!</p>
+                            <p class="text-xs text-gray-500 mt-1">* 저녁 인사로도 쓰이지만, 잠자리에 들 때 '잘 자'라는 의미로도 사용합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 포인트 3: 다양한 상황별 표현 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-100 overflow-hidden cornell-section">
+                <div class="bg-brand-50 p-4 border-b border-brand-100 flex items-center justify-between pl-6">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-sm">3</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900">축하, 감사, 사과, 식사할 때</h3>
+                    </div>
+                </div>
+                <div class="p-5 sm:p-6 pl-6 space-y-5">
+                    
+                    <!-- 축하와 감사 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border border-pink-100 bg-pink-50/30 rounded-xl p-4">
+                            <h4 class="font-bold text-pink-600 mb-3 flex items-center"><i class="fa-solid fa-gift mr-2"></i>축하할 때</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-pink-100 shadow-sm">
+                                    <div>
+                                        <strong class="block text-gray-900">¡Felicidades!</strong>
+                                        <span class="text-xs text-gray-500">[펠리시다데스] 축하합니다! (일반, 생일 등)</span>
+                                    </div>
+                                    <button onclick="playTTS('¡Felicidades!')" class="text-pink-400 hover:text-pink-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                                <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-pink-100 shadow-sm">
+                                    <div>
+                                        <strong class="block text-gray-900">¡Enhorabuena!</strong>
+                                        <span class="text-xs text-gray-500">[엔오라부에나] 축하합니다! (성취, 합격 등)</span>
+                                    </div>
+                                    <button onclick="playTTS('¡Enhorabuena!')" class="text-pink-400 hover:text-pink-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="border border-green-100 bg-green-50/30 rounded-xl p-4">
+                            <h4 class="font-bold text-green-600 mb-3 flex items-center"><i class="fa-solid fa-hands-clapping mr-2"></i>감사할 때</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-green-100 shadow-sm">
+                                    <div>
+                                        <strong class="block text-gray-900">¡Muchas gracias!</strong>
+                                        <span class="text-xs text-gray-500">[무차스 그라시아스] 정말 감사합니다!</span>
+                                    </div>
+                                    <button onclick="playTTS('¡Muchas gracias!')" class="text-green-500 hover:text-green-700"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                                <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-green-100 shadow-sm">
+                                    <div>
+                                        <strong class="block text-gray-900">De nada.</strong>
+                                        <span class="text-xs text-gray-500">[데 나다] 천만에요.</span>
+                                    </div>
+                                    <button onclick="playTTS('De nada.')" class="text-green-500 hover:text-green-700"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 사과와 식사 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border border-red-100 bg-red-50/30 rounded-xl p-4">
+                            <h4 class="font-bold text-red-600 mb-3 flex items-center"><i class="fa-solid fa-circle-exclamation mr-2"></i>사과할 때</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center bg-white px-3 py-2 rounded border border-red-100">
+                                    <span><strong>Lo siento.</strong> <span class="text-xs text-gray-500 ml-1">[로 시엔또] 죄송합니다.</span></span>
+                                    <button onclick="playTTS('Lo siento.')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                                <div class="flex justify-between items-center bg-white px-3 py-2 rounded border border-red-100">
+                                    <span><strong>Perdón.</strong> <span class="text-xs text-gray-500 ml-1">[뻬르돈] 미안해요.</span></span>
+                                    <button onclick="playTTS('Perdón.')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                                <div class="bg-gray-50 p-2 rounded mt-2 text-sm text-gray-700">
+                                    대답: <strong>No importa.</strong> (괜찮아요) / <strong>No pasa nada.</strong> (아무 일 아니에요/괜찮아요)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-yellow-100 bg-yellow-50/30 rounded-xl p-4">
+                            <h4 class="font-bold text-yellow-600 mb-3 flex items-center"><i class="fa-solid fa-utensils mr-2"></i>식사할 때</h4>
+                            <ul class="space-y-3">
+                                <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-yellow-100 shadow-sm">
+                                    <div>
+                                        <strong class="block text-gray-900">¡Buen provecho!</strong>
+                                        <span class="text-xs text-gray-500">[부엔 쁘로베초] 맛있게 드세요!</span>
+                                    </div>
+                                    <button onclick="playTTS('¡Buen provecho!')" class="text-yellow-500 hover:text-yellow-700"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                                <li class="flex justify-between items-center bg-white p-3 rounded-lg border border-yellow-100 shadow-sm">
+                                    <div>
+                                        <strong class="block text-gray-900">Estoy satisfecho(a).</strong>
+                                        <span class="text-xs text-gray-500">[에스또이 싸띠스페초] 잘 먹었습니다.</span>
+                                    </div>
+                                    <button onclick="playTTS('Estoy satisfecho. Estoy satisfecha.')" class="text-yellow-500 hover:text-yellow-700"><i class="fa-solid fa-volume-high"></i></button>
+                                </li>
+                            </ul>
+                            <p class="text-[11px] text-gray-500 mt-2">* 말하는 사람이 여성이면 satisfech<strong class="text-brand-600">a</strong> 라고 합니다.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </section>
+
+        <section id="tab-business" class="tab-content space-y-6">
+            
+            <div class="bg-gradient-to-br from-indigo-900 via-slate-800 to-brand-900 rounded-2xl shadow-lg p-6 sm:p-8 text-white relative overflow-hidden">
+                <div class="absolute right-[-20px] top-[-20px] opacity-10 pointer-events-none">
+                    <i class="fa-solid fa-earth-americas text-9xl"></i>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span class="bg-brand-500 text-white px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase shadow-sm">Special Mission</span>
+                        <span class="text-brand-200 text-sm font-medium">Alex (장관호) 대표님</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black mb-4 tracking-tight leading-tight">멕시코 소비재 박람회<br>바이어 첫 만남과 기본 매너</h2>
+                    
+                    <div class="bg-white/10 backdrop-blur-sm p-4 rounded-xl border border-white/20 text-sm sm:text-base leading-relaxed text-indigo-50">
+                        2과에서 배운 <strong>시간대별 인사(¡Buenos días!, ¡Buenas tardes!)</strong>와 <strong>첫 만남 표현(Mucho gusto)</strong>, 그리고 <strong>감사/사과 표현(Gracias, Lo siento)</strong>은 멕시코 박람회 부스에 방문한 바이어를 처음 응대할 때 가장 기본적이고 중요한 비즈니스 매너입니다.<br><br>
+                        영어의 Hi/Hello 대신, 현지 시간에 맞는 스페인어 인사말을 건네고 앱소(Abso)와 아드망(A'demang), 포뮬라인(Formula:in)의 혁신적인 제품을 소개하기 전 정중하게 첫인사를 나누는 스피킹 상황을 연습해 봅니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 회화 실전 (Speaking) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
+                <div class="flex items-center mb-6 border-b-2 border-indigo-100 pb-4">
+                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl mr-4 shadow-sm"><i class="fa-solid fa-headset"></i></div>
+                    <div>
+                        <h3 class="font-black text-xl text-gray-900">스피킹 실전 <span class="text-indigo-600 font-bold text-base ml-2">부스 방문 바이어 맞이하기</span></h3>
+                        <p class="text-sm text-gray-500 mt-1">시간대에 맞는 인사말과 정중한 감사 표현으로 전문적인 첫인상을 남깁니다.</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- 대화 1 -->
+                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-200 relative">
+                        <button onclick="playTTS('¡Buenos días! Mucho gusto. Soy Alex de Abso.')" class="absolute top-4 right-4 w-10 h-10 bg-white border border-gray-300 text-gray-600 rounded-full hover:bg-brand-50 hover:text-brand-600 hover:border-brand-300 transition-colors flex items-center justify-center shadow-sm focus:outline-none">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                        <div class="flex items-center space-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">Alex</div>
+                            <span class="font-bold text-gray-800">Alex (오전 부스에서)</span>
+                        </div>
+                        <p class="text-lg font-bold text-gray-900 mb-1 pr-12"><span class="text-brand-600">¡Buenos días! Mucho gusto.</span> Soy Alex de Abso.</p>
+                        <p class="text-sm text-gray-500 mb-3">좋은 아침입니다! 처음 뵙겠습니다. 저는 앱소의 알렉스입니다.</p>
+                        <div class="bg-white px-4 py-3 rounded-lg text-sm text-gray-600 border border-gray-100 flex items-start">
+                            <i class="fa-solid fa-magnifying-glass text-brand-500 mt-0.5 mr-2"></i>
+                            <div>
+                                <strong class="text-gray-800">Tip:</strong> 'Hola'도 좋지만, 비즈니스 미팅이나 박람회에서는 시간대에 맞는 'Buenos días(오전)' 또는 'Buenas tardes(오후)'를 사용하면 훨씬 프로페셔널한 인상을 줍니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 대화 2 -->
+                    <div class="bg-indigo-50 rounded-2xl p-5 border border-indigo-100 relative">
+                        <button onclick="playTTS('¡Buenas tardes! Muchas gracias por visitar nuestro stand. De nada.')" class="absolute top-4 right-4 w-10 h-10 bg-white border border-indigo-200 text-indigo-600 rounded-full hover:bg-indigo-600 hover:text-white transition-colors flex items-center justify-center shadow-sm focus:outline-none">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex items-center space-x-3 mb-1">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">Alex</div>
+                                    <span class="font-bold text-indigo-900">Alex (오후 미팅)</span>
+                                </div>
+                                <p class="text-lg font-bold text-gray-900 ml-11 pr-12"><span class="border-b-2 border-brand-400">¡Buenas tardes! Muchas gracias</span> por visitar nuestro stand.</p>
+                                <p class="text-sm text-indigo-600/80 ml-11">좋은 오후입니다! 저희 부스(stand)를 방문해 주셔서 정말 감사합니다.</p>
+                            </div>
+                            
+                            <div>
+                                <div class="flex items-center space-x-3 mb-1">
+                                    <div class="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user"></i></div>
+                                    <span class="font-bold text-gray-800">Buyer</span>
+                                </div>
+                                <p class="text-lg font-bold text-gray-900 ml-11 pr-12"><span class="border-b-2 border-brand-400">De nada.</span></p>
+                                <p class="text-sm text-gray-500 ml-11">천만에요.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/60 px-4 py-3 rounded-lg text-sm text-indigo-900 border border-indigo-100 flex items-start mt-4">
+                            <i class="fa-solid fa-check text-brand-500 mt-0.5 mr-2"></i>
+                            <div>
+                                <strong>Muchas gracias / De nada:</strong> 바이어가 부스를 방문하거나 명함을 교환했을 때 'Muchas gracias(정말 감사합니다)'를 건네고, 바이어가 칭찬할 때 'De nada(천만에요)'로 응답하는 훈련입니다.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 독해 실전 (Reading) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-8">
+                <div class="flex items-center mb-6 border-b-2 border-brand-100 pb-4">
+                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-xl mr-4 shadow-sm"><i class="fa-solid fa-envelope-open-text"></i></div>
+                    <div>
+                        <h3 class="font-black text-xl text-gray-900">리딩 실전 <span class="text-brand-600 font-bold text-base ml-2">바이어의 왓츠앱(WhatsApp) 메시지 응답</span></h3>
+                        <p class="text-sm text-gray-500 mt-1">박람회 직후 바이어가 보낸 감사 인사에 스페인어로 가볍게 답변하는 상황입니다.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-100 p-5 rounded-2xl border border-slate-200 font-sans max-w-lg mx-auto shadow-inner">
+                    <div class="flex items-center mb-4 pb-3 border-b border-slate-300">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white"><i class="fa-solid fa-user"></i></div>
+                        <div class="ml-3">
+                            <p class="font-bold text-slate-800">Buyer México</p>
+                            <p class="text-xs text-slate-500">en línea</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-slate-200 inline-block max-w-[85%] relative">
+                            <button onclick="playTTS('¡Hola, Alex! Buenos días. Muchas gracias por el catálogo de Formula:in.')" class="absolute -right-10 top-2 text-slate-400 hover:text-brand-600"><i class="fa-solid fa-volume-high"></i></button>
+                            <p class="text-slate-800">¡Hola, Alex! <strong>Buenos días.</strong> <br><strong class="text-brand-600">Muchas gracias</strong> por el catálogo de Formula:in.</p>
+                            <p class="text-[10px] text-right text-slate-400 mt-1">10:15 AM</p>
+                        </div>
+                        <div class="bg-indigo-100 p-3 rounded-2xl rounded-tr-none shadow-sm border border-indigo-200 inline-block max-w-[85%] relative self-end float-right">
+                            <button onclick="playTTS('De nada. ¡Hasta luego!')" class="absolute -left-10 top-2 text-slate-400 hover:text-brand-600"><i class="fa-solid fa-volume-high"></i></button>
+                            <p class="text-slate-800"><strong class="text-indigo-800">De nada.</strong> ¡<strong>Hasta luego</strong>!</p>
+                            <p class="text-[10px] text-right text-slate-500 mt-1">10:20 AM</p>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-3">
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex items-start text-sm text-gray-700">
+                        <i class="fa-solid fa-key text-brand-500 mt-1 mr-3 text-lg"></i>
+                        <div>
+                            <strong>De nada (천만에요) / Hasta luego (나중에 봬요):</strong> 바이어가 포뮬라인(Formula:in) 카탈로그에 대해 'Muchas gracias'라고 한 것에 대해, 'De nada'로 예의 바르게 답하고 'Hasta luego'로 다음 미팅을 기약하는 자연스러운 마무리입니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="tab-vocab" class="tab-content space-y-6">
+            <div class="bg-slate-800 rounded-t-2xl shadow-md overflow-hidden text-white flex justify-between items-center p-4 border-b border-slate-700">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-book-bookmark text-brand-400 text-2xl"></i>
+                    <h2 class="font-black text-xl">2과 핵심 & 비즈니스 단어장</h2>
+                    <span id="vocab-total-count" class="bg-slate-700 text-brand-300 text-xs font-bold px-2.5 py-1 rounded-full border border-slate-600">0</span>
+                </div>
+                <button onclick="toggleAllMeanings()" id="btn-toggle-meanings" class="bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors border border-slate-600 flex items-center focus:outline-none">
+                    <i class="fa-solid fa-eye-slash mr-2 w-4"></i><span id="text-toggle-meanings">뜻 숨기기</span>
+                </button>
+            </div>
+
+            <!-- 단어장 컨트롤 바 -->
+            <div class="bg-white p-4 shadow-sm border-x border-b border-gray-200 rounded-b-2xl mb-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="vocab-search" onkeyup="filterVocab()" placeholder="스페인어, 발음 또는 뜻 검색..." class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-brand-500 focus:border-brand-500 block pl-10 p-2.5 outline-none transition-all">
+                    </div>
+                    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
+                        <button onclick="filterType('all')" id="filter-all" class="filter-btn active bg-brand-500 text-white text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap shadow-sm transition-colors">전체</button>
+                        <button onclick="filterType('greeting')" id="filter-greeting" class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-gray-200">인사말</button>
+                        <button onclick="filterType('business')" id="filter-business" class="filter-btn bg-indigo-100 text-indigo-700 hover:bg-indigo-200 text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap transition-colors border border-indigo-200">비즈니스</button>
+                    </div>
+                </div>
+
+                <!-- 전체 듣기 컨트롤 -->
+                <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span class="text-sm font-bold text-gray-700 flex items-center">
+                        <i class="fa-solid fa-headphones-simple text-brand-500 mr-2"></i>단어장 자동 재생 (스페인어 1번, 한국어 1번)
+                    </span>
+                    <button id="btn-play-all" onclick="togglePlayAll()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-6 rounded-xl shadow-sm transition-all flex items-center focus:outline-none">
+                        <i id="icon-play-all" class="fa-solid fa-play mr-2"></i><span id="text-play-all">전체 재생</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 단어 리스트 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <ul id="vocab-list" class="divide-y divide-gray-100">
+                    <!-- JavaScript로 렌더링 됨 -->
+                </ul>
+                <div id="vocab-empty" class="hidden p-8 text-center text-gray-500">
+                    <i class="fa-solid fa-ghost text-4xl mb-3 text-gray-300"></i>
+                    <p>검색 결과가 없습니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 2과 단어 데이터
+        const wordData = [
+            // 인사말
+            { es: "¡Hola!", ko: "안녕! / 안녕하세요!", pron: "올라", type: "greeting" },
+            { es: "¡Buenos días!", ko: "좋은 아침입니다!", pron: "부에노스 디아스", type: "greeting" },
+            { es: "¡Buenas tardes!", ko: "좋은 오후입니다!", pron: "부에나스 따르데스", type: "greeting" },
+            { es: "¡Buenas noches!", ko: "좋은 저녁/밤입니다! / 잘 자!", pron: "부에나스 노체스", type: "greeting" },
+            { es: "Mucho gusto.", ko: "처음 뵙겠습니다.", pron: "무초 구스또", type: "greeting" },
+            { es: "Encantado.", ko: "만나서 반갑습니다. (말하는 사람이 남성일 때)", pron: "엔깐따도", type: "greeting" },
+            { es: "Encantada.", ko: "만나서 반갑습니다. (말하는 사람이 여성일 때)", pron: "엔깐따다", type: "greeting" },
+            { es: "¡Chao!", ko: "안녕! (잠시 헤어질 때)", pron: "차오", type: "greeting" },
+            { es: "¡Hasta luego!", ko: "또 만나자! / 나중에 봬요!", pron: "아스따 루에고", type: "greeting" },
+            { es: "¡Adiós!", ko: "안녕! (오랜 시간 헤어질 때)", pron: "아디오스", type: "greeting" },
+            { es: "¡Felicidades!", ko: "축하합니다! (일반, 생일 등)", pron: "펠리시다데스", type: "greeting" },
+            { es: "¡Enhorabuena!", ko: "축하합니다! (성취, 합격 등)", pron: "엔오라부에나", type: "greeting" },
+            { es: "Gracias.", ko: "감사합니다.", pron: "그라시아스", type: "greeting" },
+            { es: "¡Muchas gracias!", ko: "정말 감사합니다!", pron: "무차스 그라시아스", type: "greeting" },
+            { es: "De nada.", ko: "천만에요.", pron: "데 나다", type: "greeting" },
+            { es: "Lo siento.", ko: "죄송합니다.", pron: "로 시엔또", type: "greeting" },
+            { es: "Perdón.", ko: "미안해요.", pron: "뻬르돈", type: "greeting" },
+            { es: "No importa.", ko: "괜찮아요.", pron: "노 임뽀르따", type: "greeting" },
+            { es: "No pasa nada.", ko: "괜찮아요. / 아무 일도 아니에요.", pron: "노 빠사 나다", type: "greeting" },
+            { es: "¡Buen provecho!", ko: "맛있게 드세요!", pron: "부엔 쁘로베초", type: "greeting" },
+            { es: "Estoy satisfecho.", ko: "잘 먹었습니다. (말하는 사람이 남성일 때)", pron: "에스또이 싸띠스페초", type: "greeting" },
+            { es: "Estoy satisfecha.", ko: "잘 먹었습니다. (말하는 사람이 여성일 때)", pron: "에스또이 싸띠스페차", type: "greeting" },
+
+            // 비즈니스
+            { es: "visitar", ko: "방문하다", pron: "비시따르", type: "business" },
+            { es: "stand", ko: "부스, 스탠드", pron: "스딴드", type: "business" }
+        ];
+
+        let isMeaningsHidden = false;
+        let isPlayingAll = false;
+        let currentPlayIndex = 0;
+        let speechSynthesisUtterance = null;
+        let filteredData = [...wordData];
+
+        // 탭 전환 기능
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('button[id^="tab-btn-"]').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-brand-600', 'shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]');
+                btn.classList.add('bg-brand-600', 'text-white', 'opacity-90');
+            });
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            activeBtn.classList.remove('bg-brand-600', 'text-white', 'opacity-90');
+            activeBtn.classList.add('bg-white', 'text-brand-600', 'shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]');
+        }
+
+        // 타입 뱃지 색상
+        const typeColors = {
+            'greeting': 'bg-yellow-100 text-yellow-700 border-yellow-200',
+            'business': 'bg-indigo-100 text-indigo-700 border-indigo-200'
+        };
+        const typeLabels = {
+            'greeting': '인사말',
+            'business': '비즈니스'
+        };
+
+        // 단어장 렌더링
+        function renderVocab(data) {
+            const list = document.getElementById('vocab-list');
+            const empty = document.getElementById('vocab-empty');
+            
+            list.innerHTML = '';
+            
+            if (data.length === 0) {
+                list.classList.add('hidden');
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            list.classList.remove('hidden');
+            empty.classList.add('hidden');
+
+            data.forEach((word, index) => {
+                const li = document.createElement('li');
+                li.className = `p-4 sm:px-6 hover:bg-gray-50 transition-colors flex justify-between items-center group ${index === currentPlayIndex && isPlayingAll ? 'bg-brand-50 border-l-4 border-brand-500' : ''}`;
+                
+                const meaningClass = isMeaningsHidden ? 'opacity-0 blur-sm select-none' : 'opacity-100';
+                const eyeIcon = isMeaningsHidden ? 'fa-eye' : 'fa-eye-slash';
+                
+                li.innerHTML = `
+                    <div class="flex-1">
+                        <div class="flex items-center mb-1">
+                            <strong class="text-lg font-bold text-gray-900 mr-2 tracking-wide">${word.es}</strong>
+                            <span class="text-xs text-gray-400 font-mono tracking-widest">[${word.pron}]</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="meaning-text text-gray-700 transition-all duration-300 ${meaningClass}">${word.ko}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 sm:space-x-3 ml-4">
+                        <span class="hidden sm:inline-block text-[10px] font-bold px-2 py-0.5 rounded border ${typeColors[word.type]}">${typeLabels[word.type]}</span>
+                        <button onclick="toggleSingleMeaning(this)" class="w-8 h-8 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors focus:outline-none flex items-center justify-center">
+                            <i class="fa-solid ${eyeIcon} text-sm"></i>
+                        </button>
+                        <button onclick="playTTS('${word.es}')" class="w-10 h-10 rounded-full bg-white border border-gray-200 text-brand-500 hover:bg-brand-500 hover:text-white hover:border-brand-500 shadow-sm transition-all focus:outline-none flex items-center justify-center">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        // 전체 뜻 숨기기/보기
+        function toggleAllMeanings() {
+            isMeaningsHidden = !isMeaningsHidden;
+            const btnText = document.getElementById('text-toggle-meanings');
+            const btnIcon = document.querySelector('#btn-toggle-meanings i');
+            
+            if (isMeaningsHidden) {
+                btnText.textContent = "뜻 보기";
+                btnIcon.classList.remove('fa-eye-slash');
+                btnIcon.classList.add('fa-eye');
+            } else {
+                btnText.textContent = "뜻 숨기기";
+                btnIcon.classList.remove('fa-eye');
+                btnIcon.classList.add('fa-eye-slash');
+            }
+            renderVocab(filteredData);
+        }
+
+        // 개별 뜻 숨기기/보기
+        function toggleSingleMeaning(btn) {
+            const meaningSpan = btn.closest('li').querySelector('.meaning-text');
+            const icon = btn.querySelector('i');
+            
+            if (meaningSpan.classList.contains('opacity-0')) {
+                meaningSpan.classList.remove('opacity-0', 'blur-sm', 'select-none');
+                meaningSpan.classList.add('opacity-100');
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                meaningSpan.classList.add('opacity-0', 'blur-sm', 'select-none');
+                meaningSpan.classList.remove('opacity-100');
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // 검색 및 필터
+        let currentTypeFilter = 'all';
+        function filterVocab() {
+            const searchTerm = document.getElementById('vocab-search').value.toLowerCase();
+            
+            filteredData = wordData.filter(word => {
+                const matchesSearch = word.es.toLowerCase().includes(searchTerm) || 
+                                    word.ko.includes(searchTerm) || 
+                                    word.pron.includes(searchTerm);
+                const matchesType = currentTypeFilter === 'all' || word.type === currentTypeFilter;
+                
+                return matchesSearch && matchesType;
+            });
+            
+            renderVocab(filteredData);
+        }
+
+        function filterType(type) {
+            currentTypeFilter = type;
+            
+            // 버튼 스타일 업데이트
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-brand-500', 'text-white', 'bg-indigo-500');
+                btn.classList.add('bg-gray-100', 'text-gray-600');
+                if(btn.id === 'filter-business') {
+                   btn.classList.add('bg-indigo-100', 'text-indigo-700');
+                   btn.classList.remove('text-gray-600');
+                }
+            });
+            
+            const activeBtn = document.getElementById('filter-' + type);
+            activeBtn.classList.remove('bg-gray-100', 'text-gray-600', 'bg-indigo-100', 'text-indigo-700');
+            
+            if (type === 'business') {
+                activeBtn.classList.add('bg-indigo-500', 'text-white');
+            } else {
+                activeBtn.classList.add('bg-brand-500', 'text-white');
+            }
+
+            filterVocab();
+        }
+
+        // TTS 발음 듣기 (Web Speech API)
+        function playTTS(text, lang = 'es-ES') {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // 이전 재생 취소
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.9; // 속도 살짝 늦춤
+                window.speechSynthesis.speak(utterance);
+                return utterance;
+            }
+        }
+
+        // 단어장 전체 자동 재생 (스페인어 -> 한국어)
+        function togglePlayAll() {
+            const btnText = document.getElementById('text-play-all');
+            const btnIcon = document.getElementById('icon-play-all');
+
+            if (isPlayingAll) {
+                // 정지
+                isPlayingAll = false;
+                window.speechSynthesis.cancel();
+                btnText.textContent = "전체 재생";
+                btnIcon.classList.remove('fa-stop', 'text-red-500');
+                btnIcon.classList.add('fa-play');
+                currentPlayIndex = 0;
+                renderVocab(filteredData); // 하이라이트 제거
+            } else {
+                // 시작
+                if (filteredData.length === 0) return;
+                isPlayingAll = true;
+                btnText.textContent = "재생 중지";
+                btnIcon.classList.remove('fa-play');
+                btnIcon.classList.add('fa-stop', 'text-red-500');
+                currentPlayIndex = 0;
+                playNextWord();
+            }
+        }
+
+        function playNextWord() {
+            if (!isPlayingAll || currentPlayIndex >= filteredData.length) {
+                togglePlayAll(); // 다 끝나면 초기화
+                return;
+            }
+
+            renderVocab(filteredData); // 현재 단어 하이라이트
+            
+            // 해당 단어로 스크롤
+            const listContainer = document.getElementById('vocab-list');
+            const currentLi = listContainer.children[currentPlayIndex];
+            if (currentLi) {
+                currentLi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            const word = filteredData[currentPlayIndex];
+            
+            // 스페인어 재생
+            const esUtterance = playTTS(word.es, 'es-ES');
+            if(esUtterance) {
+                esUtterance.onend = () => {
+                    // 스페인어 끝나면 약간 쉬고 한국어 재생
+                    setTimeout(() => {
+                        if (!isPlayingAll) return;
+                        const koUtterance = playTTS(word.ko, 'ko-KR');
+                        if(koUtterance) {
+                            koUtterance.onend = () => {
+                                currentPlayIndex++;
+                                setTimeout(playNextWord, 800); // 다음 단어 넘어가기 전 대기
+                            };
+                        } else {
+                            currentPlayIndex++;
+                            playNextWord();
+                        }
+                    }, 500);
+                };
+            }
+        }
+
+        // 초기화
+        window.onload = () => {
+            const count = wordData.length;
+            document.getElementById('header-vocab-count').textContent = count;
+            document.getElementById('vocab-total-count').textContent = count;
+            renderVocab(wordData);
+        };
+    </script>
+</body>
+</html>
